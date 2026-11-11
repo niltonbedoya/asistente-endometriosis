@@ -21,14 +21,14 @@
 
 ## Tasks
 
-- **T1** (S1,S2,S4) — Infra: `git init`, `.gitignore`, estructura de carpetas, `package.json`, `tsconfig.json`, `vitest.config.ts`, sync `.engram/`. Ruta: inline. Estado: ⏳ pendiente.
-- **T2** (S5,S6,S11) — Documentación: `README.md`, `AGENTS.md`, `agent.cmd`, `docs/architecture/` (ADRs), `docs/contracts/`, `docs/safety/`, `openspec/` spec inicial. Ruta: inline. Estado: ⏳ pendiente.
-- **T3** (S8,S9,S10) — TDD RED→GREEN: tests de contratos triaje en `tests/contracts/triaje.test.ts` + test de invariante `tests/invariants/triaje_safety.test.ts` (RED), luego esquemas Zod en `src/core/contracts/` y evaluador determinista `triaje.evaluateSafety` (GREEN). Ruta: inline. Estado: ⏳ pendiente.
-- **T4** (S3,S4) — Persistir decisiones de arquitectura en Engram (`mem_save`) y espejo del documento. Ruta: inline. Estado: ⏳ pendiente.
+- **T1** (S1,S2,S4) — Infra: `git init` main, `.gitignore`, estructura, `package.json`, `tsconfig.json`, `vitest.config.ts`. Ruta: inline. Estado: ✅ hecho — commit `c475ba8`.
+- **T2** (S5,S6,S11) — Documentación: `README.md`, `AGENTS.md`, `agent.cmd`, ADR-001, `docs/contracts/`, `docs/safety/`, `openspec/0001-bootstrap.md`. Ruta: inline. Estado: ✅ hecho — commit `c53a62e`.
+- **T3** (S8,S9,S10) — TDD RED→GREEN: RED observado (`npm test` → 2 ficheros fallidos por módulos inexistentes), GREEN observado (16/16 tests, `npm run typecheck` limpio): esquemas `safetyEvaluationSchema`/`triageInputSchema` + `evaluateSafety` determinista. Ruta: inline. Estado: ✅ hecho — commit `285b154`.
+- **T4** (S3,S4) — Engram: `mem_save` obs 216 (arquitectura bootstrap), `engram sync` ejecutado (`.engram/` con chunks + manifest). Ruta: inline. Estado: ✅ hecho.
 - **T5** (S7 restante: analizador/planificador/entrenador/fitoterapista/auditor + invariantes grocery_parity, workout_safety) — Próximo hito (más allá del bootstrap; requiere decisión de mezcla con Cardionutri). Estado: ⏳ pendiente (bloqueado por decisión cardionutri).
 - **T6** — Vincular remoto GitHub (S1 pendiente: falta URL). Estado: ⏳ pendiente (bloqueado por datos del usuario).
 
 ## Log
 
 - **L1** (2026-11-11, verbatim): "D:\Downloads\prompt_maestro_de_inicio (1).md D:\Downloads\readme_del_proyecto.md te paso estos dos ficheros para comenzar un proyecto nuevo. usa todas las herramientas de Gentle-AI (ODD, TDD, SDD, engram, etc), hay que crear todos los documentos necesarios para el proyecto, incluyendo agents.md readme.md adaptado a lo que Gentle-AI aconseja, etc, pero ademas debes de hacer un analisis importante porque quiero adaptar este proyecto como una mezcla entre este proyecto y cardionutri, dime que necesitas para acceder a cardionutri en github y poder hacer una adaptacion de lo que pedimos en este proyecto con cardionutri. pero siempre enfocado a lo que este proyecto manda, la endiometriosis. comencemos"
-- **L2** (2026-11-11): Bootstrap planificado inline (criterio Task Size: cambios understood y mecánicos, sin unidades paralelas independientes que disparen Writer trigger). Pendiente: T1-T4. Cardionutri: pendiente de acceso (URL pública con clone basta; repo privado requiere `gh auth` o PAT de lectura).
+- **L2** (2026-11-11): Bootstrap ejecutado inline (criterio Task Size: cambios understood y mecánicos, sin unidades paralelas independientes que disparen Writer trigger). T1–T4 completados con evidencia observada: RED (2 failed) → GREEN (16 passed) → typecheck limpio. Commits: `c475ba8` (chore infra), `c53a62e` (docs), `285b154` (feat triaje). Avisos `gentle-ai doctor` no bloqueantes: engram duplicado en PATH (C:\Users\NILTO\AppData\Local\engram\bin y C:\Users\NILTO\go\bin — limpieza sugerida) y MCP config persistida solo para agente `antigravity`. Pendiente: T5 (resto de agentes), T6 (remoto GitHub). Cardionutri: pendiente de acceso (URL pública con clone basta; repo privado requiere `gh auth` o PAT de lectura).
