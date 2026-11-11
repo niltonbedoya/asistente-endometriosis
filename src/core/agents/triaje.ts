@@ -12,7 +12,13 @@ import {
 const PERITONEAL_SIGNS = ['rigid abdomen', 'abdominal guarding', 'peritoneal', 'abdomen rigido'];
 const SYNCOPE_SIGNS = ['fainted', 'syncope', 'syncop', 'desmayo', 'desmay', 'sincope'];
 const FEVER_SIGNS = ['fever', 'fiebre'];
-const BLEEDING_SIGNS = ['sangrado abundante', 'hemorragia', 'heavy bleeding', 'abnormal bleeding'];
+const BLEEDING_SIGNS = [
+  'sangrado abundante',
+  'sangrado muy abundante',
+  'hemorragia',
+  'heavy bleeding',
+  'abnormal bleeding',
+];
 
 function foldText(text: string): string {
   // Case- and accent-insensitive matching: 'abdomen rígido' and
