@@ -1,0 +1,23 @@
+{
+  "name": "asistente-endometriosis",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Predictive and adaptive assistant for quality of life in endometriosis. Local-first, multiagent, Gentle-AI ecosystem.",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "dev": "echo 'Dev environment (Expo/PWA) - to be configured in the client milestone'"
+  },
+  "dependencies": {
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  },
+  "allowScripts": {
+    "esbuild@0.21.5": true
+  }
+}

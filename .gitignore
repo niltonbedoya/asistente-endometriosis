@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build artifacts
+.expo/
+dist/
+build/
+out/
+
+# Secrets & environment
+.env
+.env.local
+*.pem
+wrangler.toml
+
+# Local test databases
+*.db
+*.sqlite
+*.sqlite3
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.log
+
+# Gentle-AI exception: .engram/ is versionable on purpose
+!.engram/
+!engram/
