@@ -45,11 +45,54 @@ describe('invariant: red-flag circuit breaker', () => {
     expect(result.status).toBe('EMERGENCY_REDIRECT');
   });
 
+  it('matches accent-less Spanish red flags in free text', () => {
+    const result = evaluateSafety({
+      user_message: 'tengo el abdomen rigido',
+      symptoms: [],
+    });
+    expect(result.status).toBe('EMERGENCY_REDIRECT');
+  });
+
+  it('matches heavy bleeding described in free text', () => {
+    const result = evaluateSafety({
+      user_message: 'tengo sangrado muy abundante',
+      symptoms: [],
+    });
+    expect(result.status).toBe('EMERGENCY_REDIRECT');
+  });
+
   it('a routine mild check-in stays SAFE', () => {
     const result = evaluateSafety({
       pain_score: 3,
       bleeding_level: 'MILD',
       symptoms: ['mild bloating'],
+    });
+    expect(result.status).toBe('SAFE');
+    expect(result.alert_level).toBe('INFO');
+  });
+
+  it('free-text red flags (syncope + peritoneal signs) trigger emergency redirect', () => {
+    const result = evaluateSafety({
+      user_message: 'me desmayé y tengo el abdomen rígido',
+      symptoms: [],
+    });
+    expect(result.status).toBe('EMERGENCY_REDIRECT');
+    expect(result.alert_level).toBe('CRITICAL');
+    expect(result.emergency_reasons.length).toBeGreaterThan(0);
+  });
+
+  it('free-text fever alone triggers emergency redirect', () => {
+    const result = evaluateSafety({
+      user_message: 'I fainted yesterday and now I have a fever',
+      symptoms: [],
+    });
+    expect(result.status).toBe('EMERGENCY_REDIRECT');
+  });
+
+  it('benign free text stays SAFE (no false positives)', () => {
+    const result = evaluateSafety({
+      user_message: 'hoy me siento bien, solo un poco cansada',
+      symptoms: [],
     });
     expect(result.status).toBe('SAFE');
     expect(result.alert_level).toBe('INFO');

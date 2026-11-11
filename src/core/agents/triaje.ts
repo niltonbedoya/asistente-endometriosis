@@ -9,15 +9,36 @@ import {
  * on inference. Symptoms are matched case-insensitively in English or
  * Spanish, since check-ins may be written in either language.
  */
-const PERITONEAL_SIGNS = ['rigid abdomen', 'abdominal guarding', 'peritoneal', 'abdomen rígido'];
-const SYNCOPE_SIGNS = ['fainted', 'syncope', 'syncop', 'desmayo', 'desmay', 'síncope'];
+const PERITONEAL_SIGNS = ['rigid abdomen', 'abdominal guarding', 'peritoneal', 'abdomen rigido'];
+const SYNCOPE_SIGNS = ['fainted', 'syncope', 'syncop', 'desmayo', 'desmay', 'sincope'];
 const FEVER_SIGNS = ['fever', 'fiebre'];
+const BLEEDING_SIGNS = ['sangrado abundante', 'hemorragia', 'heavy bleeding', 'abnormal bleeding'];
+
+function foldText(text: string): string {
+  // Case- and accent-insensitive matching: 'abdomen rígido' and
+  // 'abdomen rigido' (missing accent) must behave identically.
+  return text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '');
+}
 
 function matchesAny(symptoms: string[], needles: string[]): boolean {
   return symptoms.some((symptom) => {
-    const normalized = symptom.toLowerCase();
-    return needles.some((needle) => normalized.includes(needle));
+    const normalized = foldText(symptom);
+    return needles.some((needle) => normalized.includes(foldText(needle)));
   });
+}
+
+/**
+ * Red flags are matched against structured symptoms AND the free-text
+ * message, since users may describe an emergency in prose. Matching is
+ * case-insensitive in English or Spanish; pain/bleeding rules are unchanged.
+ */
+function redFlagText(input: TriageInput): string[] {
+  return input.user_message
+    ? [...input.symptoms, input.user_message]
+    : input.symptoms;
 }
 
 /**
@@ -32,19 +53,19 @@ export function evaluateSafety(input: TriageInput): SafetyEvaluation {
     reasons.push('Sudden incapacitating pain 10/10 reported');
   }
 
-  if (input.bleeding_level === 'SEVERE') {
+  if (input.bleeding_level === 'SEVERE' || matchesAny(redFlagText(input), BLEEDING_SIGNS)) {
     reasons.push('Abnormally heavy bleeding reported');
   }
 
-  if (matchesAny(input.symptoms, PERITONEAL_SIGNS)) {
+  if (matchesAny(redFlagText(input), PERITONEAL_SIGNS)) {
     reasons.push('Possible peritoneal signs reported');
   }
 
-  if (matchesAny(input.symptoms, SYNCOPE_SIGNS)) {
+  if (matchesAny(redFlagText(input), SYNCOPE_SIGNS)) {
     reasons.push('Syncope or fainting reported');
   }
 
-  if (matchesAny(input.symptoms, FEVER_SIGNS)) {
+  if (matchesAny(redFlagText(input), FEVER_SIGNS)) {
     reasons.push('Active fever with pelvic symptoms reported');
   }
 
