@@ -29,9 +29,9 @@
 - **F5** (S7,S8,S9-SupplementFactSheet) — `fitoterapista` consultivo con descargos. Estado: ✅ GREEN 65/65 + typecheck — commit `6331a5a`.
 - **F6** (S10,S11,S9-AuditReport) — `auditor` + `orquestador` con cortocircuito por bandera roja. Estado: ✅ GREEN 76/76 + typecheck — commit `d5c434d`.
 - **F7** — Juicio final: skill `judgment-day` (dual review), reparar lo solicitado, re-testear. Estado: ✅ APPROVED — 2 CRITICAL confirmados por ambos jueces, corregidos; re-juicio limpio de severidad CRITICAL; endurecimiento adicional de matching de acentos/sangrado; suite final 83/83 + typecheck limpio.
-- **F8** (UI/Local-First foundation) — Typed React Native theme derived from XIAS tokens, clinical semantic states, accessible check-in model, local storage port and deterministic adapter tests. ⏳
-- **F9** (Edge boundary) — Provider-agnostic edge gateway contract: no clinical persistence, request sanitization, rate-limit policy and model boundary tests. ⏳
-- **F10** (MCP/OCR/RAG boundaries) — Typed MCP capability contracts and on-device OCR/RAG ports with deterministic fixtures; no network in core tests. ⏳
+- **F8** (UI/Local-First foundation) — Typed React Native theme derived from XIAS tokens, clinical semantic states, accessible check-in model, local storage port and deterministic adapter tests. Estado: ✅ GREEN 89/89 + typecheck — commit `d8ac736`.
+- **F9** (Edge boundary) — Provider-agnostic edge gateway contract: no clinical persistence, request sanitization, rate-limit policy and model boundary tests. Estado: ✅ GREEN 92/92 + typecheck.
+- **F10** (MCP/OCR/RAG boundaries) — Typed MCP capability contracts and on-device OCR/RAG ports with deterministic fixtures; no network in core tests. Estado: ✅ GREEN 95/95 + typecheck — commit `40c9ea6`.
 
 ## Log
 
