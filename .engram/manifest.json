@@ -8,6 +8,14 @@
       "sessions": 1,
       "memories": 0,
       "prompts": 0
+    },
+    {
+      "id": "ad288282",
+      "created_by": "NILTO",
+      "created_at": "2026-11-11T20:08:55.5552031Z",
+      "sessions": 1,
+      "memories": 7,
+      "prompts": 0
     }
   ]
 }
