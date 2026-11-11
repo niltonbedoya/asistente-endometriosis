@@ -25,8 +25,8 @@
 - **T2** (S5,S6,S11) — Documentación: `README.md`, `AGENTS.md`, `agent.cmd`, ADR-001, `docs/contracts/`, `docs/safety/`, `openspec/0001-bootstrap.md`. Ruta: inline. Estado: ✅ hecho — commit `c53a62e`.
 - **T3** (S8,S9,S10) — TDD RED→GREEN: RED observado (`npm test` → 2 ficheros fallidos por módulos inexistentes), GREEN observado (16/16 tests, `npm run typecheck` limpio): esquemas `safetyEvaluationSchema`/`triageInputSchema` + `evaluateSafety` determinista. Ruta: inline. Estado: ✅ hecho — commit `285b154`.
 - **T4** (S3,S4) — Engram: `mem_save` obs 216 (arquitectura bootstrap), `engram sync` ejecutado (`.engram/` con chunks + manifest). Ruta: inline. Estado: ✅ hecho.
-- **T5** (S7 restante: analizador/planificador/entrenador/fitoterapista/auditor + invariantes grocery_parity, workout_safety) — Próximo hito (más allá del bootstrap; requiere decisión de mezcla con Cardionutri). Estado: ⏳ pendiente (bloqueado por decisión cardionutri).
-- **T6** — Vincular remoto GitHub (S1 pendiente: falta URL). Estado: ⏳ pendiente (bloqueado por datos del usuario).
+- **T5** (S7 restante: analizador/planificador/entrenador/fitoterapista/auditor + invariantes grocery_parity, workout_safety) — Próximo hito (más allá del bootstrap; adaptación Cardionutri). Estado: ⏳ en análisis — repositorio de referencia clonado en `D:\personalaifolder\refs\cardionutri` (acceso ya disponible vía `gh` de la cuenta niltonbedoya; repo privado propio).
+- **T6** — Vincular remoto GitHub (S1 pendiente: falta URL). Estado: ✅ hecho — repo público `niltonbedoya/asistente-endometriosis` creado y pusheado (nombre elegido por privacidad: evitar nombre personal en repo público de salud).
 
 ## Log
 
