@@ -95,9 +95,14 @@ export function handleUserTurn(request: OrquestadorRequest): OrquestadorResponse
   }
 
   if (request.requests.includes('workout')) {
+    // Fail-safe: when the analizador failed (or is absent) we cannot know
+    // the real traffic light, so we assume the conservative RED light —
+    // never a weaker default. Pain/energy fall back to moderate values that
+    // cannot lower the modality below what the conservative light implies.
+    const trafficLight = biologicalState?.traffic_light_status ?? 'RED';
     try {
       workout = prescribeWorkout({
-        traffic_light_status: biologicalState?.traffic_light_status ?? 'YELLOW',
+        traffic_light_status: trafficLight,
         pain_score: request.check_in?.pain_score ?? 3,
         energy_level: request.check_in?.energy_level ?? 3,
         cycle_phase: biologicalState?.current_phase ?? 'FOLLICULAR',
@@ -140,7 +145,7 @@ export function handleUserTurn(request: OrquestadorRequest): OrquestadorResponse
   };
 
   if (workout) {
-    const workoutAudit = auditEntrenador(workout, biologicalState?.traffic_light_status ?? 'YELLOW');
+    const workoutAudit = auditEntrenador(workout, biologicalState?.traffic_light_status ?? 'RED');
     if (workoutAudit.status === 'REJECTED_WITH_RETRY') {
       audit = workoutAudit;
       workout = null;

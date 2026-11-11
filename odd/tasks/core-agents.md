@@ -22,14 +22,15 @@
 
 ## Tasks
 
-- **F1** (S1,S9-paridad) — Contrato `WeeklyNutritionPlan` + `consolidateGroceryList` (port ADR-002 de `consolidateShoppingList`, cardionutri `weeklyPlanner.schema.ts:199`) + invariante `grocery_parity`. Gate: `npm test` verde. ⏳
-- **F2** (S2,S8) — Perfil de usuaria + intolerancias (adaptación cardionutri `allergies.schema.ts`, listas endometriosis: gluten, caseína/lácteos, histamina, legumbres/lectinas, FODMAPs) + estado embarazo/lactancia/anticoagulantes. ⏳
-- **F3** (S2-S5,S9-BiologicalState) — `analizador`: fase de ciclo, semáforo 🔴🟡🟢, ventana de riesgo 7–14 días. Determinista. ⏳
-- **F4** (S6,S9-WorkoutPrescription) — `entrenador_personal` + invariante `workout_safety` (🔴 ⇒ solo RESTORATIVE, cero hiperpresión). ⏳
-- **F5** (S7,S8,S9-SupplementFactSheet) — `fitoterapista` con catálogo consultivo y descargos automáticos. ⏳
-- **F6** (S10,S11,S9-AuditReport) — `auditor` gatekeeper + `orquestador` (despacho con cortocircuito por bandera roja) + test de pipeline completo. ⏳
-- **F7** — Juicio final: skill `judgment-day` (dual review), reparar lo solicitado, re-testear. ⏳
+- **F1** (S1,S9-paridad) — Contrato `WeeklyNutritionPlan` + `consolidateGroceryList` (port ADR-002) + invariante `grocery_parity`. Gate: `npm test` verde. Estado: ✅ RED observado → GREEN 24/24 — commit `82ece4a`.
+- **F2** (S2,S8) — Perfil + intolerancias endometriosis + banderas clínicas. Estado: ✅ GREEN 29/29 — commit `5f6a3eb`.
+- **F3** (S2-S5,S9-BiologicalState) — `analizador`: fases, semáforo, ventana 7–14d. Estado: ✅ RED observado → GREEN 46/46 + typecheck — commit `9c8d9f5`.
+- **F4** (S6,S9-WorkoutPrescription) — `entrenador_personal` + `workout_safety`. Estado: ✅ GREEN 55/55 — commit `3910145`.
+- **F5** (S7,S8,S9-SupplementFactSheet) — `fitoterapista` consultivo con descargos. Estado: ✅ GREEN 65/65 + typecheck — commit `6331a5a`.
+- **F6** (S10,S11,S9-AuditReport) — `auditor` + `orquestador` con cortocircuito por bandera roja. Estado: ✅ GREEN 76/76 + typecheck — commit `d5c434d`.
+- **F7** — Juicio final: skill `judgment-day` (dual review), reparar lo solicitado, re-testear. Estado: ✅ APPROVED — 2 CRITICAL confirmados por ambos jueces, corregidos; re-juicio limpio de severidad CRITICAL; endurecimiento adicional de matching de acentos/sangrado; suite final 83/83 + typecheck limpio.
 
 ## Log
 
 - **L1** (2026-11-11, verbatim): "ahora quiero que comiences a hacer todas las fases sin parar y sin preguntarme, lo unico que debes de comprobar antes de pasar a la siguiente fase es que los tests de la fase uno pasen todos, sino pasan arreglas lo necesario, vuelves a testear y pasas a la siguiente fase, hasta terminar, luego al terminar lanzas el skill del dia del juicio, reparas lo que pida y luego probamos"
+- **L2** (2026-11-11): Judgment Day round 1 found two corroborated critical defects: free-text red flags bypassed triage; analyzer failure defaulted workout to YELLOW. Bounded fix changed triage free-text matching and conservative RED fallback. Round 2: both judges confirmed fixes with no CRITICAL regressions; warnings remained informational. Additional safe hardening added accent-insensitive matching and natural-language heavy bleeding coverage.

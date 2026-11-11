@@ -28,6 +28,35 @@ describe('orquestador: red-flag fast path', () => {
   });
 });
 
+describe('orquestador: free-text red flags', () => {
+  it('a free-text emergency message short-circuits the pipeline', () => {
+    const response = handleUserTurn({
+      user_message: 'ayer me desmayé y tengo el abdomen rígido y fiebre',
+      profile: PROFILE,
+      requests: ['workout'],
+    });
+    expect(response.triage.status).toBe('EMERGENCY_REDIRECT');
+    expect(response.emergency).not.toBeNull();
+    expect(response.workout).toBeNull();
+  });
+});
+
+describe('orquestador: fail-safe workout dispatch', () => {
+  it('delivers a RESTORATIVE workout (never STRENGTH) when the analizador cannot run', () => {
+    // No cycle_day => analyzeBiologicalState throws => biologicalState null.
+    // The dispatch must fall back to the conservative RED light, not YELLOW.
+    const response = handleUserTurn({
+      check_in: { pain_score: 9, energy_level: 2, bloating: false, bleeding_level: 'MILD' },
+      profile: PROFILE,
+      requests: ['workout'],
+    });
+    expect(response.triage.status).toBe('SAFE');
+    expect(response.biological_state).toBeNull();
+    expect(response.workout).not.toBeNull();
+    expect(response.workout?.modality).toBe('RESTORATIVE');
+  });
+});
+
 describe('orquestador: audited pipeline', () => {
   const planDays = Array.from({ length: 7 }, (_, day_index) => ({
     day_index,
