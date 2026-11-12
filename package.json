@@ -4,11 +4,17 @@
   "private": true,
   "description": "Predictive and adaptive assistant for quality of life in endometriosis. Local-first, multiagent, Gentle-AI ecosystem.",
   "type": "module",
+  "workspaces": [
+    "apps/*"
+  ],
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
-    "dev": "echo 'Dev environment (Expo/PWA) - to be configured in the client milestone'"
+    "dev": "echo 'Dev environment (Expo/PWA) - to be configured in the client milestone'",
+    "mobile:start": "npm run start --workspace apps/mobile",
+    "mobile:android": "npm run android --workspace apps/mobile",
+    "mobile:ios": "npm run ios --workspace apps/mobile"
   },
   "dependencies": {
     "zod": "^3.23.0"
@@ -21,3 +27,4 @@
     "esbuild@0.21.5": true
   }
 }
+
